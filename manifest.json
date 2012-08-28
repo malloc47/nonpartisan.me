@@ -6,7 +6,7 @@
   "permissions"      : ["tabs","http://www.facebook.com/"],
   "content_scripts"  : [
       {
-	  "matches": ["*://*.facebook.com/"],
+	  "matches": ["*://*.facebook.com/","*://*.facebook.com/?sk=nf"],
 	  "js"     : ["jquery.js","nonpartisan.js"],
 	  "run_at" : "document_end"
       }

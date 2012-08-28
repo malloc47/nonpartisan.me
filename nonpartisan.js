@@ -1,8 +1,15 @@
 function findContent(classname,container,removeList){
-    $('.'+classname).filter( function (index) {
+    // $('li.genericStreamStory').each(function() {
+    // 	if($(this).find('*')
+    // });
+    $(classname).filter( function (index) {
 	var toCheck = $(this).text().toLowerCase();
+	if(toCheck.length == 0) {return false;}
 	return removeList
 	    .some(function(value) {
+		// if(toCheck.indexOf(value.toLowerCase()) >= 0) {
+		//     console.debug(toCheck);
+		// }
 		return (toCheck.indexOf(value.toLowerCase()) >= 0);
 	    });
     }).closest(container).css({'display':'none'});
@@ -12,16 +19,17 @@ var MutationObserver = window.MutationObserver || window.WebKitMutationObserver 
 var observer = new MutationObserver(function(mutations) {
     mutations.forEach(function(mutation) {
 	if(mutation.type == 'childList') {
-	    // kill everything wholesale
-	    findContent('userContent','li.genericStreamStory',['the']);
+	    console.debug("removing from mutation");
+	    findContent('li.genericStreamStory *','li.genericStreamStory',['the','project']);
 	}
     });
 });
 
-observer.observe(document.querySelector('#home_stream'), 
-		 { attributes      : true
+observer.observe(document.querySelector('#mainContainer'), 
+		 { attributes      : false
 		   , childList     : true
-		   , characterData : true
+		   , characterData : false
 		   , subtree       : true });
 
-findContent('userContent','li.genericStreamStory',['the']);
+// findContent('li.genericStreamStory *:not(:has(*))','li.genericStreamStory',['the','project']);
+findContent('li.genericStreamStory *','li.genericStreamStory',['the','project']);

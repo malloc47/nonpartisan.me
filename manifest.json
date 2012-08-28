@@ -1,0 +1,14 @@
+{
+  "manifest_version" : 2,
+  "name"             : "nonpartisan.me",
+  "version"          : "1.0",
+  "description"      : "Removes partisanship from the facebook news feed",
+  "permissions"      : ["tabs","http://www.facebook.com/"],
+  "content_scripts"  : [
+      {
+	  "matches": ["*://*.facebook.com/"],
+	  "js"     : ["jquery.js","nonpartisan.js"],
+	  "run_at" : "document_end"
+      }
+  ]
+}

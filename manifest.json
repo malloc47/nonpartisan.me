@@ -3,10 +3,10 @@
   "name"             : "nonpartisan.me",
   "version"          : "1.0",
   "description"      : "Removes partisanship from the facebook news feed",
-  "permissions"      : ["tabs","http://www.facebook.com/"],
+  "permissions"      : ["http://www.facebook.com/"],
   "content_scripts"  : [
       {
-	  "matches": ["*://*.facebook.com/","*://*.facebook.com/?sk=nf"],
+	  "matches": ["*://*.facebook.com/*"],
 	  "js"     : ["jquery.js","nonpartisan.js"],
 	  "run_at" : "document_end"
       }

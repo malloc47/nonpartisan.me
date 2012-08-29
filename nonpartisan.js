@@ -24,21 +24,13 @@ function nonpartisan(watch,parent,keywords) {
 
 	var numChildren = $(parent).children().length
 	
-	var MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
-	var observer = new MutationObserver(function(mutations) {
-	    if(mutations
-	       .some(function(el,ind,a) {
-		   return (el.type == 'childList');
-	       })) {
-	    	kill(parent,keywords);
+	setInterval(function () {
+	    var newNumChildren = $(parent).children().length;
+	    if(numChildren != newNumChildren) {
+		kill(parent,keywords);
 	    }
-	});
-
-	observer.observe(document.querySelector(watch), 
-			 { attributes      : false
-			   , childList     : true
-			   , characterData : false
-			   , subtree       : true });
+	},
+		   500);
 
 	kill(parent,keywords);
     }

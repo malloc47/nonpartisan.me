@@ -45,9 +45,22 @@ function fb_nonpartisan(keywords) {
     nonpartisan('#content','li.fbTimelineUnit',keywords);
 }
 
-democrat = ['obama','health care','abortion','pro-choice','liberal'];
-republican = ['mitt','romney','paul ryan','pro-life','conservative','gop','rnc','ron paul'];
-topics = ['abortion','election','government','contraception','taxes'];
-all = topics.concat(democrat,republican);
+choices = {
+    "liberal"      : ['obama','health care','pro-choice','liberal'],
+    "conservative" : ['mitt','romney','paul ryan','pro-life','conservative','gop','rnc','ron paul'],
+    "topics"       : ['abortion','election','government','contraception','taxes'],
+};
 
-fb_nonpartisan(all);
+var selected = [];
+
+chrome.extension.sendMessage({method: "setup"}, function(response) {
+    for(var i in response) {
+	if(response[i]) {
+	    selected = selected.concat(choices[i]);
+	}
+    }
+    fb_nonpartisan(selected);
+    console.debug(selected.join(' '));
+});
+
+

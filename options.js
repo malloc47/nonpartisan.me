@@ -1,5 +1,25 @@
 $(document).ready(function() {
-    var opts = ['conservative','liberal','topics'];
+
+    // http://stackoverflow.com/questions/2010892/storing-objects-in-html5-localstorage
+    Storage.prototype.setObject = function(key, value) {
+	this.setItem(key, JSON.stringify(value));
+    }
+
+    Storage.prototype.getObject = function(key) {
+	var value = this.getItem(key);
+	return value && JSON.parse(value);
+    }
+
+
+    var choices = {
+	"liberal"      : ['obama','health care','pro-choice','liberal'],
+	"conservative" : ['mitt','romney','paul ryan','pro-life','conservative','gop','rnc','ron paul'],
+	"topics"       : ['abortion','election','government','contraception','taxes'],
+    };
+
+    var filterList = [];
+
+    // Restore checkboxes
 
     function restore_check(name) {
 	var value = localStorage[name];
@@ -10,11 +30,56 @@ $(document).ready(function() {
 	$('#'+name).prop('checked',(value != "false"));
     }
 
-    opts.forEach(function(item) {
-	restore_check(item);
-    });
+    for(var index in choices) {
+	restore_check(index);
+    }
 
-    $("#save").click(function() {
+    // Restore custom string
+
+    if(localStorage["custom"]) {
+	$('#customvalue').val(localStorage["custom"]);
+    }
+
+    // Restore ratio buttons
+
+    function change_selection() {
+	filterList = [];
+	if($('#builtin').prop('checked')) {
+	    for(var index in choices) {
+		if($('#'+index).prop('checked')) {
+		    filterList = filterList.concat(choices[index]);
+		}
+	    }
+	}
+	else {
+	    filterList = $('#customvalue').val()
+		.toLowerCase()
+		.replace(/[^a-z0-9\ \,\-]+/g,"")
+		.replace(/\,+/g, ",")
+		.split(',')
+		.map(function(el){return el.trim()})
+		.filter(function(el){return (el);});
+	}
+	$('#filtered-list').text("\""+ filterList.join(', ')+"\"");
+    }
+
+    if(!localStorage["switch"] || (localStorage["switch"] == "builtin")) {
+	$('#builtin').prop('checked',true)
+	$('#custom').prop('checked',false)
+	change_selection();
+    }
+    else {
+	$('#custom').prop('checked',true)
+	$('#builtin').prop('checked',false)
+	change_selection();
+    }
+
+    $('input').change(change_selection);
+    $('#customvalue').keyup(change_selection);
+
+    // Save handler
+
+    $('#save').click(function() {
 	function save_checkbox(elName) {
 	    var value = "false";
 	    if($('#'+elName).prop('checked')) { 
@@ -22,13 +87,18 @@ $(document).ready(function() {
 	    }
 	    localStorage[elName] = value;
 	}
-	save_checkbox("conservative");
-	save_checkbox("liberal");
-	save_checkbox("topics");
 
-	opts.forEach(function(item) {
-	    save_checkbox(item);
-	});
+	for(var index in choices) {
+	    save_checkbox(index);
+	}
+
+	if($('#builtin').prop('checked'))
+	    localStorage["switch"] = "builtin";
+	else
+	    localStorage["switch"] = "custom";
+
+	localStorage["filter"] = JSON.stringify(filterList);
+	localStorage["custom"] = $('#customvalue').val();
 
 	var status = document.getElementById("status");
 	$('#status').text("Options Saved");

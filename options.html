@@ -3,11 +3,20 @@
   <script src="jquery.js"></script>
   <script src="options.js"></script>
   <body>
-    <h1>nonpartsian.me Options</h1>
-    <p>Filters: <br />
-      <label for="conservative"><input id="conservative" type="checkbox" />Conservative</label><br />
-      <label for="liberal"><input id="liberal" type="checkbox" />Liberal</label><br />
-      <label for="topics"><input id="topics" type="checkbox" />General Politics</label></p>
+    <h1>nonpartisan.me Options</h1>
+    <p>Filters:</p>
+    <input type="radio" name="switch" id="builtin" value="Built-in"> Built-in
+    <ul style="list-style-type: none">
+      <li><label for="conservative"><input id="conservative" type="checkbox" />Conservative</label></li>
+      <li><label for="liberal"><input id="liberal" type="checkbox" />Liberal</label></li>
+      <li><label for="topics"><input id="topics" type="checkbox" />General Politics</label></li>
+    </ul>
+    <input type="radio" name="switch" id="custom" value="Custom">Custom
+    <ul style="list-style-type: none">
+      <li><input type="text" name="customvalue" id="customvalue" size="50" value=""></li>
+    </ul>
+    <p>Preview:</p>
+    <p id="filtered-list">[none]</p>
     <button id="save">Save</button>
     <p id="status"></p>
   </body>

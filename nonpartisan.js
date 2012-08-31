@@ -8,7 +8,10 @@ function nonpartisan(watch,parent,keywords) {
 		    var toCheck = $(this).text().toLowerCase();
 		    if(toCheck.length > 0 &&
 		       (removeList.some(function(value) {
-			   return (toCheck.indexOf(value.toLowerCase()) >= 0);
+			   // return (toCheck.indexOf(value.toLowerCase()) >= 0);
+			   // regex only recognizes ascii boundaries
+			   // http://breakthebit.org/post/3446894238/word-boundaries-in-javascripts-regular-expressions
+			   return (toCheck.search("\\b"+value.toLowerCase()+"\\b") >=0);
 		       }))
 		      ) {
 			el.css({'display':'none'});
@@ -45,7 +48,7 @@ function fb_nonpartisan(keywords) {
     nonpartisan('#content','li.fbTimelineUnit',keywords);
 }
 
-choices = {
+var choices = {
     "liberal"      : ['obama','health care','pro-choice','liberal'],
     "conservative" : ['mitt','romney','paul ryan','pro-life','conservative','gop','rnc','ron paul'],
     "topics"       : ['abortion','election','government','contraception','taxes'],
@@ -53,14 +56,19 @@ choices = {
 
 var selected = [];
 
-chrome.extension.sendMessage({method: "setup"}, function(response) {
-    for(var i in response) {
-	if(response[i]) {
-	    selected = selected.concat(choices[i]);
-	}
+chrome.extension.sendMessage({method: "filter"}, function(response) {
+    l = response["filter"];
+    if(l && l.length>0) {
+	fb_nonpartisan(l);
+	// console.debug(l.join(', '));
     }
-    fb_nonpartisan(selected);
-    console.debug(selected.join(' '));
+    else {
+	fb_nonpartisan(['obama','health care','pro-choice','liberal',
+			'mitt','romney','paul ryan','pro-life',
+			'conservative','gop','rnc','ron paul',
+			'abortion','election','government',
+			'contraception','taxes']);
+    }
 });
 
 

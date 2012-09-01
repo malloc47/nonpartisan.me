@@ -1,14 +1,27 @@
 {
-    "manifest_version" : 2,
     "name"             : "nonpartisan.me",
-    "version"          : "1.0",
-    "description"      : "Removes partisanship from the facebook news feed",
-    "permissions"      : ["http://www.facebook.com/"],
+    "version"          : "0.1",
+    "manifest_version" : 2,
+    "description"      : "Removes partisanship from your news feeds",
+    "icons"            : { "16": "icon16.png",
+			   "48": "icon48.png",
+			   "128": "icon128.png" },
+    // "default_locale": "en",
+    "page_action"      : {
+	"default_icon": "icon48.png",
+	"default_title": "nonpartisan'ed"
+    },
+    "permissions"      : ["tabs","http://www.facebook.com/"],
     "options_page"     : "options.html",
     "content_scripts"  : [
 	{
 	    "matches": ["*://*.facebook.com/*"],
-	    "js"     : ["jquery.js","nonpartisan.js"],
+	    "js"     : ["jquery.js","common.js","fb.js","nonpartisan.js"],
+	    "run_at" : "document_end"
+	},
+	{
+	    "matches": ["*://twitter.com/*"],
+	    "js"     : ["jquery.js","common.js","tw.js","nonpartisan.js"],
 	    "run_at" : "document_end"
 	}
     ],

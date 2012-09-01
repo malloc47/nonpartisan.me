@@ -1,11 +1,5 @@
 $(document).ready(function() {
 
-    var choices = {
-	"liberal"      : ['obama','health care','pro-choice','liberal'],
-	"conservative" : ['mitt','romney','paul ryan','pro-life','conservative','gop','rnc','ron paul'],
-	"topics"       : ['abortion','election','government','contraception','taxes'],
-    };
-
     var filterList = [];
 
     // Restore checkboxes

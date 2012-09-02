@@ -2,6 +2,7 @@ all:
 	inkscape -e ../chrome/icon16.png -w 16 -h 16 logo.svg
 	inkscape -e ../chrome/icon48.png -w 48 -h 48 logo.svg
 	inkscape -e ../chrome/icon128.png -w 128 -h 128 logo.svg
+	inkscape -e icon96.png -w 96 -h 96 logo.svg
 	inkscape -e ../chrome/nonpartisan.me.png -w 256 -h 256 logo.svg
 	inkscape -e apple-touch-icon-144-precomposed.png -w 144 -h 144 logo.svg
 	inkscape -e apple-touch-icon-114-precomposed.png -w 114 -h 114 logo.svg

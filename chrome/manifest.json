@@ -1,6 +1,6 @@
 {
     "name"             : "nonpartisan.me",
-    "version"          : "0.1",
+    "version"          : "0.1.1",
     "manifest_version" : 2,
     "description"      : "Removes partisanship from your news feeds",
     "icons"            : { "16": "icon16.png",

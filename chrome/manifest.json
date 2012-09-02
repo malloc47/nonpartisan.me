@@ -6,12 +6,12 @@
     "icons"            : { "16": "icon16.png",
 			   "48": "icon48.png",
 			   "128": "icon128.png" },
-    // "default_locale": "en",
+    "homepage_url"     : "http://nonpartisan.me",
     "page_action"      : {
 	"default_icon": "icon48.png",
 	"default_title": "nonpartisan'ed"
     },
-    "permissions"      : ["tabs","http://www.facebook.com/"],
+    "permissions"      : ["tabs","http://www.facebook.com/","http://www.twitter.com/"],
     "options_page"     : "options.html",
     "content_scripts"  : [
 	{

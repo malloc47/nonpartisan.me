@@ -1,4 +1,6 @@
-$(document).ready(function() {
+"use strict";
+
+$(document).ready(function () {
 
     var filterList = [];
 
@@ -40,8 +42,8 @@ $(document).ready(function() {
 		.replace(/[^a-z0-9\ \,\-]+/g,"")
 		.replace(/\,+/g, ",")
 		.split(',')
-		.map(function(el){return el.trim()})
-		.filter(function(el){return (el);});
+		.map(function (el){return el.trim()})
+		.filter(function (el){return (el);});
 	}
 	$('#filtered-list').text("\""+ filterList.join(', ')+"\"");
     }
@@ -62,7 +64,7 @@ $(document).ready(function() {
 
     // Save handler
 
-    $('#save').click(function() {
+    $('#save').click(function () {
 	function save_checkbox(elName) {
 	    var value = "false";
 	    if($('#'+elName).prop('checked')) { 
@@ -85,7 +87,7 @@ $(document).ready(function() {
 
 	var status = document.getElementById("status");
 	$('#status').text("Options Saved");
-	setTimeout(function() {
+	setTimeout(function () {
 	    $('#status').text("");
 	}, 2000);
     });

@@ -1,12 +1,14 @@
-function nonpartisan(watch,parent,keywords) {
-    function kill(parent,removeList){
-	$(parent).each(function() {
+"use strict";
+
+function nonpartisan (watch,parent,keywords) {
+    function kill (parent,removeList){
+	$(parent).each(function () {
 	    var el = $(this);
-	    if(el.css('display') != 'none') {
-    		el.find('*').each(function () {
+	    if(el.css('display') !== 'none') {
+		el.find('*').each(function () {
 		    var toCheck = $(this).text().toLowerCase();
 		    if(toCheck.length > 0 &&
-		       (removeList.some(function(value) {
+		       (removeList.some(function (value) {
 			   return (toCheck.search("\\b"+value.toLowerCase()+"\\b") >=0);
 		       }))
 		      ) {
@@ -16,14 +18,14 @@ function nonpartisan(watch,parent,keywords) {
 		});
 	    }
 	});
-    };
+    }
 
     // if on a page with the supported elements
     if($(parent) && $(watch)) {
-	var numChildren = $(parent).children().length
+	var numChildren = $(parent).children().length;
 	setInterval(function () {
 	    var newNumChildren = $(parent).children().length;
-	    if(numChildren != newNumChildren) {
+	    if(numChildren !== newNumChildren) {
 		kill(parent,keywords);
 	    }
 	},
@@ -32,8 +34,8 @@ function nonpartisan(watch,parent,keywords) {
     }
 }
 
-chrome.extension.sendMessage({method: "filter"}, function(response) {
-    l = response["filter"];
+chrome.extension.sendMessage({method: "filter"}, function (response) {
+    var l = response.filter;
     if(l && l.length>0) {
 	nonpartisan_callback(l);
     }
@@ -43,7 +45,7 @@ chrome.extension.sendMessage({method: "filter"}, function(response) {
 	for(var index in choices) {
 	    l = l.concat(choices[index]);
 	}
-	fb_nonpartisan_callback(l);
+	nonpartisan_callback(l);
     }
     // console.debug(l.join(', '));
 });

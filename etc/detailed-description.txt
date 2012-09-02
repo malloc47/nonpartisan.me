@@ -1,0 +1,5 @@
+nonpartisan.me is able hides posts in your news feed which contain specific keywords.  It has all sorts of features:
+* Keyword presets: If you only want to block "liberal" posts or "conservative" posts, you're covered with some built-in presets.
+* Custom keywords: If the presets aren't working for you (or are overzealous), punch in any keywords you'd like to see gone, and say goodbye to those posts.
+* Multiple sites: Currently filters the facebook news feed and twitter, with more sites coming soon.
+* Aggressive filter: Can identify posts to remove, even if the partisanship only begins in the comments.

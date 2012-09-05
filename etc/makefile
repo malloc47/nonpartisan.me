@@ -9,3 +9,5 @@ all:
 	inkscape -e apple-touch-icon-72-precomposed.png -w 72 -h 72 logo.svg
 	inkscape -e apple-touch-icon-57-precomposed.png -w 57 -h 57 logo.svg
 	inkscape -e favicon.png -w 64 -h 64 logo.svg
+	inkscape -e ../firefox/icon.png -w 32 -h 32 logo.svg
+	inkscape -e ../firefox/icon64.png -w 64 -h 64 logo.svg

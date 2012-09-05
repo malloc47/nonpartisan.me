@@ -27,6 +27,7 @@ function nonpartisan (watch,parent,keywords) {
 	    var newNumChildren = $(parent).children().length;
 	    if(numChildren !== newNumChildren) {
 		kill(parent,keywords);
+		numChildren = newNumChildren;
 	    }
 	},
 		    500);

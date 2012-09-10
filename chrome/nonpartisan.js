@@ -53,4 +53,3 @@ var nonpartisan = function(plugin) {
 	// console.debug(l.join(', '));
     });
 }(plugin);
-

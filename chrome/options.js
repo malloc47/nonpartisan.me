@@ -8,20 +8,21 @@ $(document).ready(function () {
 
     function restore_check(name) {
 	var value = localStorage[name];
+	var sName = name.replace('.','');
 	if(!value) { 
-	    $('#'+name).prop('checked',true)
+	    $('#'+sName).prop('checked',true)
 	    return; 
 	}
-	$('#'+name).prop('checked',(value != "false"));
+	$('#'+sName).prop('checked',(value != "false"));
     }
 
     for(var index in choices) {
 	restore_check(index);
     }
 
-    sites.forEach(function (el){
-	restore_check(el);
-    });
+    for(var index in sites) {
+	restore_check(index);
+    }
 
     // Restore custom string
 
@@ -81,9 +82,9 @@ $(document).ready(function () {
 	    save_checkbox(index);
 	}
 
-	sites.forEach(function (el){
-	    save_checkbox(el);
-	});
+	for(var index in sites) {
+	    save_checkbox(index);
+	}
 
 	if($('#builtin').prop('checked'))
 	    localStorage["switch"] = "builtin";

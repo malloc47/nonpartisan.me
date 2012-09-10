@@ -15,27 +15,42 @@ function storageToggle(name) {
 }
 
 chrome.pageAction.onClicked.addListener(function(tab) {
-    for (var i=0; i<sites.length; i++) {
+    for(var i in sites) {
 	if(tab.url.indexOf(sites[i]) > -1){
-	    storageToggle(sites[i]);
+	    storageToggle(i);
 	    break;
 	}
     }
+    // for (var i=0; i<sites.length; i++) {
+    // 	if(tab.url.indexOf(sites[i]) > -1){
+    // 	    storageToggle(sites[i]);
+    // 	    break;
+    // 	}
+    // }
     chrome.tabs.reload(tab.id);
 });
 
 chrome.extension.onMessage.addListener(function (request, sender, sendResponse) {
     if (request.method === "config") {
 	var s = {};
-	for (var i=0; i<sites.length; i++) {
-	    if(localStorage[sites[i]]) {
-		s[sites[i]] = (localStorage[sites[i]] === "true")
+	for(var i in sites) {
+	    if(localStorage[i]) {
+		s[i] = (localStorage[i] === "true")
 	    }
 	    else {
 		// assume true
-		s[sites[i]] = true;
+		s[i] = true;
 	    }
 	}
+	// for (var i=0; i<sites.length; i++) {
+	//     if(localStorage[sites[i]]) {
+	// 	s[sites[i]] = (localStorage[sites[i]] === "true")
+	//     }
+	//     else {
+	// 	// assume true
+	// 	s[sites[i]] = true;
+	//     }
+	// }
 	var f = [];
 	if(localStorage.filter) {
 	    f = JSON.parse(localStorage.filter)
@@ -57,10 +72,11 @@ chrome.tabs.onUpdated.addListener(function (tabId, change) {
     if (change.status === "complete") {
         chrome.tabs.query({active: true}, function (tabs) {
             var tab = tabs[0];
-	    for (var i=0; i<sites.length; i++) {
-		if(tab.url.indexOf(sites[i]+".com") > -1) {
-		    if(localStorage[sites[i]] && 
-		       localStorage[sites[i]] !== "true") {
+	    var found = false;
+	    for(var i in sites) {
+		if(tab.url.indexOf(sites[i]) > -1) {
+		    if(localStorage[i] && 
+		       localStorage[i] !== "true") {
 			chrome.pageAction.setIcon({"tabId" : tabId,
 						   "path":"icon48bw.png"});
 			chrome.pageAction.setTitle({"tabId" : tabId,
@@ -73,16 +89,32 @@ chrome.tabs.onUpdated.addListener(function (tabId, change) {
 						   "title":"nonpartisan.me: Click to turn off filter"});
 		    }
 		    chrome.pageAction.show(tab.id);
+		    found = true;
+		    break;
 		}
 	    }
+	    // for (var i=0; i<sites.length; i++) {
+	    // 	if(tab.url.indexOf(sites[i]+".com") > -1) {
+	    // 	    if(localStorage[sites[i]] && 
+	    // 	       localStorage[sites[i]] !== "true") {
+	    // 		chrome.pageAction.setIcon({"tabId" : tabId,
+	    // 					   "path":"icon48bw.png"});
+	    // 		chrome.pageAction.setTitle({"tabId" : tabId,
+	    // 					   "title":"nonpartisan.me: Click to turn on filter"});
+	    // 	    }
+	    // 	    else {
+	    // 		chrome.pageAction.setIcon({"tabId" : tabId,
+	    // 					   "path":"icon48.png"});
+	    // 		chrome.pageAction.setTitle({"tabId" : tabId,
+	    // 					   "title":"nonpartisan.me: Click to turn off filter"});
+	    // 	    }
+	    // 	    chrome.pageAction.show(tab.id);
+	    // 	    found = true;
+	    // 	    break;
+	    // 	}
+	    // }
 
-            if (tab.url.indexOf("www.facebook.com") > -1 ||
-		tab.url.indexOf("twitter.com") > -1) {
-                chrome.pageAction.show(tab.id);
-	    } 
-            else {
-                chrome.pageAction.hide(tab.id); 
-	    }
+	    if(!found) chrome.pageAction.hide(tab.id); 
         });
     }
 });

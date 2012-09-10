@@ -1,6 +1,6 @@
 {
     "name"             : "nonpartisan.me",
-    "version"          : "0.2.0",
+    "version"          : "0.2.1",
     "manifest_version" : 2,
     "description"      : "Removes partisanship from your news feeds",
     "icons"            : { "16": "icon16.png",
@@ -11,7 +11,7 @@
 	"default_icon": "icon48.png",
 	"default_title": "nonpartisan'ed"
     },
-    "permissions"      : ["tabs","http://www.facebook.com/","http://www.twitter.com/"],
+    "permissions"      : ["tabs","http://www.facebook.com/","http://www.twitter.com/","http://plus.google.com/"],
     "options_page"     : "options.html",
     "content_scripts"  : [
 	{
@@ -22,6 +22,11 @@
 	{
 	    "matches": ["*://twitter.com/*"],
 	    "js"     : ["jquery.js","common.js","tw.js","nonpartisan.js"],
+	    "run_at" : "document_end"
+	},
+	{
+	    "matches": ["*://plus.google.com/*"],
+	    "js"     : ["jquery.js","common.js","gp.js","nonpartisan.js"],
 	    "run_at" : "document_end"
 	}
     ],

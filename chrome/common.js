@@ -4,8 +4,6 @@ var choices = {
     "topics"       : ['abortion','election','elections','government','contraception','taxes','voter','voters','political','politics','president','presidents','socialism'],
 };
 
-// var sites = ['twitter','facebook','plus.google'];
-
 var sites = {
     "twitter" : "twitter.com",
     "facebook" : "facebook.com",

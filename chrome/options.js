@@ -19,6 +19,10 @@ $(document).ready(function () {
 	restore_check(index);
     }
 
+    sites.forEach(function (el){
+	restore_check(el);
+    });
+
     // Restore custom string
 
     if(localStorage["custom"]) {
@@ -76,6 +80,10 @@ $(document).ready(function () {
 	for(var index in choices) {
 	    save_checkbox(index);
 	}
+
+	sites.forEach(function (el){
+	    save_checkbox(el);
+	});
 
 	if($('#builtin').prop('checked'))
 	    localStorage["switch"] = "builtin";
